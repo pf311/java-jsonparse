@@ -15,24 +15,49 @@ public class WeatherParse {
     private static String JSON_WEATHER_PATH = "weather.json";
 
     public static void main(String[] args) {
+	
 
         FileReader jsonFile = null;
         try {
             // lecture du fichier json
             jsonFile = new FileReader(JSON_WEATHER_PATH);
+            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         
         // TODO parser le fichier
+	JSONParser parser = new JSONParser();
+	Object jsonParsed = null;
+	try {
+        jsonParsed = parser.parse(jsonFile);
+	} catch (ParseException | IOException e) {
+    	e.printStackTrace();
+	}
 
         // TODO récupérer la racine du document
+	JSONObject root = (JSONObject) jsonParsed;
+
 
         // TODO afficher la valeur de l'attribut "name" de la racine
+	String name = (String) root.get("name");
+	System.out.println("City name : "+(name));
 
         // TODO afficher les valeurs des attributs "lat" et "lon" de l'élément "coord" contenu dans la racine
+	JSONObject obj = (JSONObject) jsonParsed;
+        JSONObject coord = (JSONObject) root.get("coord");
+	System.out.println("City longitude : "+ ((coord.get("lon"))));
+	System.out.println("City latitude : " +((coord.get("lat"))));
+
+	
 
         // TODO parcourir tous les éléments de "weather" et afficher le contenu de "main"
+	JSONArray weather = (JSONArray) root.get("weather");
+	for (int i = 0 ; i < weather.size() ; i++){
+        JSONObject js = (JSONObject) weather.get(i);
+	System.out.println ("Weather : " + js.get("main"));
+
+	}
 
         /*
             Résultat attendu :
