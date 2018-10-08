@@ -51,7 +51,7 @@ public class WeatherParse {
 
 	
 
-        // TODO parcourir tous les éléments de "weather" et afficher le contenu de "main"
+        // TOO parcourir tous les éléments de "weather" et afficher le contenu de "main"
 	JSONArray weather = (JSONArray) root.get("weather");
 	for (int i = 0 ; i < weather.size() ; i++){
         JSONObject js = (JSONObject) weather.get(i);
